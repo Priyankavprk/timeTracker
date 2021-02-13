@@ -1,7 +1,7 @@
 import {REHYDRATE} from 'redux-persist/lib/constants';
 
 const initialState = {
-  data: [],
+  task: [{name: "", details: "", isStarted: true}, {name: "", details: "", isStarted: true}],
   counter: 0,
 };
 
@@ -20,7 +20,7 @@ export default function timer(state = initialState, action) {
     case 'ADD_DATA':
       return {
         ...state,
-        counter: action.payload,
+        task: [...state.task, action.payload.data],
       };
 
     default:
