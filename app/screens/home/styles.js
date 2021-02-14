@@ -27,8 +27,8 @@ const styles = StyleSheet.create({
     fontSize: 16,
   },
   listStyle: {
-      marginBottom: 100,
-      paddingBottom: 100,
+      marginBottom: 150,
+      paddingBottom: 150,
   },
   search: {
     marginVertical: 10,

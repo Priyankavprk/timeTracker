@@ -31,6 +31,7 @@ export default function timer(state = initialState, action) {
           [taskName]: {
             ...state.task[taskName],
             isStarted: true,
+            startTime: new Date(),
           },
         },
       };

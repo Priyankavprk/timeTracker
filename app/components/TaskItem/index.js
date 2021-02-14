@@ -2,6 +2,8 @@ import React, {PureComponent} from 'react';
 import {View, Text} from 'react-native';
 import {TouchableOpacity} from 'react-native-gesture-handler';
 import {connect} from 'react-redux';
+import moment from 'moment';
+import BackgroundTimer from 'react-native-background-timer';
 
 import styles from './styles';
 
@@ -14,6 +16,25 @@ class TaskItem extends PureComponent {
       hr: 0,
     };
     this.intervalID = null;
+  }
+
+  componentDidMount() {
+    const {item = {}} = this.props;
+    const {isStarted, startTime} = item;
+    if (isStarted) {
+      const currentTime = moment();
+      const duration = moment.duration(currentTime.diff(startTime));
+      const totalSec = duration.asSeconds();
+      const second = parseInt(totalSec % 60);
+      const minute = parseInt(totalSec / 60);
+      const hour = parseInt(minute / 60);
+      this.setState({
+        sec: second,
+        min: minute,
+        hr: hour,
+      });
+      this.intervalID = BackgroundTimer.setInterval(() => this.tick(), 1000);
+    }
   }
 
   getDisplayTime = () => {
@@ -58,7 +79,7 @@ class TaskItem extends PureComponent {
   handleButtonClick = () => {
     const {item, startTask, endTask} = this.props;
     if (item.isStarted) {
-      clearInterval(this.intervalID);
+      BackgroundTimer.clearInterval(this.intervalID);
       this.intervalID = null;
       endTask(item.name);
     } else {
@@ -66,7 +87,7 @@ class TaskItem extends PureComponent {
         return;
       }
       startTask(item.name);
-      this.intervalID = setInterval(() => this.tick(), 1000);
+      this.intervalID = BackgroundTimer.setInterval(() => this.tick(), 1000);
     }
   };
 
@@ -76,6 +97,15 @@ class TaskItem extends PureComponent {
       <View style={styles.taskContainer}>
         <Text style={styles.title}>{item.name}</Text>
         <Text style={styles.details}>{item.details}</Text>
+        {item.startTime && (
+          <Text
+            style={[
+              styles.startTime,
+              {color: item.isStarted ? '#252626' : '#C0CACD'},
+            ]}>
+            {moment(item.startTime).format('DD-MM-YYYY,hh:mm:ss')}
+          </Text>
+        )}
         <Text
           style={[
             styles.time,
@@ -93,7 +123,10 @@ class TaskItem extends PureComponent {
         <View style={styles.footer}>
           <TouchableOpacity
             onPress={() =>
-              this.props.navigation.navigate('Details', {data: item, isEdit: true})
+              this.props.navigation.navigate('Details', {
+                data: item,
+                isEdit: true,
+              })
             }>
             <Text style={styles.footerText}>Edit</Text>
           </TouchableOpacity>
