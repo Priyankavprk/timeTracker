@@ -22,7 +22,6 @@ class Details extends PureComponent {
         {
           name: title,
           details,
-          isStarted: false,
         },
         id,
       );

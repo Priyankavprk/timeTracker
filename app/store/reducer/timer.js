@@ -65,7 +65,10 @@ export default function timer(state = initialState, action) {
       const taskName = action.payload.data.taskName;
       return {
         ...state,
-        task: {...state.task, [taskName]: action.payload.data.task},
+        task: {
+          ...state.task,
+          [taskName]: {...state.task[taskName], ...action.payload.data.task},
+        },
       };
     }
 
