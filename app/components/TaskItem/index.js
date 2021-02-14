@@ -81,12 +81,12 @@ class TaskItem extends PureComponent {
     if (item.isStarted) {
       BackgroundTimer.clearInterval(this.intervalID);
       this.intervalID = null;
-      endTask(item.name);
+      endTask(item.id);
     } else {
       if (this.intervalID) {
         return;
       }
-      startTask(item.name);
+      startTask(item.id);
       this.intervalID = BackgroundTimer.setInterval(() => this.tick(), 1000);
     }
   };
@@ -124,13 +124,17 @@ class TaskItem extends PureComponent {
           <TouchableOpacity
             onPress={() =>
               this.props.navigation.navigate('Details', {
-                data: item,
+                data: {
+                  name: item.name,
+                  details: item.details,
+                  id: item.id,
+                },
                 isEdit: true,
               })
             }>
             <Text style={styles.footerText}>Edit</Text>
           </TouchableOpacity>
-          <TouchableOpacity onPress={() => deleteTask(item.name)}>
+          <TouchableOpacity onPress={() => deleteTask(item.id)}>
             <Text style={styles.footerText}>Delete</Text>
           </TouchableOpacity>
         </View>

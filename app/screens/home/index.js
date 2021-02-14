@@ -73,7 +73,7 @@ class Home extends PureComponent {
             extraData={renderTask}
             contentContainerStyle={styles.listStyle}
             showsVerticalScrollIndicator={false}
-            keyExtractor={(item) => item.name}
+            keyExtractor={(item) => item.id}
           />
         </View>
       </View>

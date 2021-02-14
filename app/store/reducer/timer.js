@@ -19,7 +19,7 @@ export default function timer(state = initialState, action) {
     case 'ADD_TASK':
       return {
         ...state,
-        task: {...state.task, [action.payload.data.name]: action.payload.data},
+        task: {...state.task, [action.payload.data.id]: action.payload.data},
       };
 
     case 'START_TASK': {

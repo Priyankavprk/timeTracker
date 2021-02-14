@@ -11,7 +11,7 @@ class Details extends PureComponent {
       title: this.props.route.params?.data.name || '',
       details: this.props.route.params?.data.details || '',
       isEdit: this.props.route.params?.isEdit || false,
-      id: this.props.route.params?.data.name || '',
+      id: this.props.route.params?.data.id || '',
     };
   }
 
