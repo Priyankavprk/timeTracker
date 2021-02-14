@@ -1,14 +1,10 @@
-export function updateData() {
+export function addTask(data) {
   return async (dispatch, getState) => {
     try {
       dispatch({
-        type: 'ADD_DATA',
+        type: 'ADD_TASK',
         payload: {
-          data: {
-            name: 'taskName',
-            detail: 'taskDetail',
-            isStarted: false,
-          },
+          data,
         },
       });
     } catch (err) {

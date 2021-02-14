@@ -1,8 +1,7 @@
 import {REHYDRATE} from 'redux-persist/lib/constants';
 
 const initialState = {
-  task: [{name: "", details: "", isStarted: true}, {name: "", details: "", isStarted: true}],
-  counter: 0,
+  task: {},
 };
 
 export default function timer(state = initialState, action) {
@@ -17,11 +16,57 @@ export default function timer(state = initialState, action) {
       return state;
     }
 
-    case 'ADD_DATA':
+    case 'ADD_TASK':
       return {
         ...state,
-        task: [...state.task, action.payload.data],
+        task: {...state.task, [action.payload.data.name]: action.payload.data},
       };
+
+    case 'START_TASK': {
+      const taskName = action.payload.taskName;
+      return {
+        ...state,
+        task: {
+          ...state.task,
+          [taskName]: {
+            ...state.task[taskName],
+            isStarted: true,
+          },
+        },
+      };
+    }
+
+    case 'END_TASK': {
+      const taskName = action.payload.taskName;
+      return {
+        ...state,
+        task: {
+          ...state.task,
+          [taskName]: {
+            ...state.task[taskName],
+            isStarted: false,
+          },
+        },
+      };
+    }
+
+    case 'DELETE_TASK': {
+      const taskName = action.payload.taskName;
+      const currentTasks = state.task;
+      delete currentTasks[taskName];
+      return {
+        ...state,
+        task: {...currentTasks},
+      };
+    }
+
+    case 'UPDATE_TASK': {
+      const taskName = action.payload.data.taskName;
+      return {
+        ...state,
+        task: {...state.task, [taskName]: action.payload.data.task},
+      };
+    }
 
     default:
       return state;
