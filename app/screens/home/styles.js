@@ -9,7 +9,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: '#249DB5',
     borderColor: '#C5C8C9',
-    alignSelf: "center",
+    alignSelf: 'center',
     marginBottom: 20,
   },
   buttonText: {
@@ -27,8 +27,8 @@ const styles = StyleSheet.create({
     fontSize: 16,
   },
   listStyle: {
-      marginBottom: 150,
-      paddingBottom: 150,
+    marginBottom: 150,
+    paddingBottom: 150,
   },
   search: {
     marginVertical: 10,
@@ -40,18 +40,18 @@ const styles = StyleSheet.create({
     padding: 5,
   },
   searchContainer: {
-      flexDirection: "row",
-      justifyContent: "space-between",
-      alignItems: "center",
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
   },
   searchButton: {
-      height: 40,
-      width: "20%",
-      justifyContent: 'center',
-      alignItems: "center",
-      borderRadius: 5,
-      borderWidth: 1,
-  }
+    height: 40,
+    width: '20%',
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: 5,
+    borderWidth: 1,
+  },
 });
 
 export default styles;
